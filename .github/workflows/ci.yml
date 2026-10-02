@@ -1,0 +1,26 @@
+name Python CI
+
+on:
+  push:
+  pull_requset:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/setup-python@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install testing and security tools
+        run: pip install pytest bandit
+
+      - name: Run tests
+      - run: pytest -v
+
+      - name: Run Bandit security scan
+        run: bandit -r app.py
